@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <script>
+            
+        var popedOut = false;
+        
+        //中文的講解
+        var introTextChinese= [
+            "安平古堡，古稱奧倫治城（Orange）、位於今臺灣臺南市。\n最早建於1624年，是臺灣最早的要塞建築。自建城以來，曾經是荷蘭人統治臺灣的中樞。\n安平古堡有兩處遺蹟被列為古蹟，為國定古蹟臺灣城殘蹟。\n而一般民眾登高望遠的瞭望臺，多被以為是安平古堡。\n但事實上是1970年代將日治時期燈塔改建而成，不屬於古蹟。\n古堡建築屋舍純紅色磚瓦，黃昏時與日落相煇映，景色優美。\n「安平夕照」1953年獲臺灣省政府選為臺灣八景之一。\n" 
+            
+        ,"原德商東興洋行位於臺南市安平區，原名為「Julius Mannich & CO.」。\n是直轄市定古蹟、安平五洋行之一。\n現在該建築是「安平外商貿易紀念館」。\n展示安平港昔日外貿的歷史，另外也展示了一些與德國相關的事物。\n而在建築的前庭，則設有露天餐廳。\n"
+        
+        ,"				臺灣本島最早媽祖廟\n蘇同炳氏著臺灣古今談「最早的媽祖廟」一文稱：\n「澎湖天后宮之外，臺灣本島的媽祖廟，以舊時位在安平的『開臺天后宮』為最早。\n鄭成功的船隊就從湄洲嶼媽祖廟中迎來軟身媽祖神……。」\n「無論是臺南或北港的天后宮，事實上都是由資格最老的安平開臺天后宮分靈出去的。\n所謂『分靈』，實際上祇是攜取舊廟的香灰，塑入新廟的神像。\n通過這種方式，不但可以興建無數個的媽祖廟，\n亦可使全臺灣的大小媽祖廟，都與安平的『開臺天后宮』保持血緣關係；\n而安平開臺天后宮的神像來自湄洲嶼，就間接說明了臺灣各地的媽祖廟，\n都是由湄洲媽祖廟所派生繁衍的。」"
+        
+        ,"安平小砲臺（或作安平小礮臺）位於臺南市安平區\n於民國七十四年（1985年）8月19日公告為古蹟。\n是由按察使銜分巡台灣兵備道姚瑩因應鴉片戰爭所籌設的17座砲臺之一。\n其名稱由來乃是相對於俗稱「安平大砲臺」的二鯤鯓砲臺（億載金城）。"
+        
+        ,"海山館位於臺南市安平區，是直轄市定古蹟，確切建成年代不明。\n海山館是清朝來臺駐守的海壇鎮標水師班兵所建之會館（廟館）。\n而海山館之名則是因為該營原駐守地海壇島上有一座山名為「海山」。\n在安平這樣的會館原本共有五座，但今天只剩下海山館而己。"
+        
+        ,"延平街古井位於臺南市安平區，是直轄市定古蹟。\n此井具體創建時間不明，一說約為荷蘭人建造熱蘭遮城之時所建。\n於咸豐年間整修過，而另一說則認為該井到清咸豐年間才建造。\n該井在過去是安平一帶屈指可數的淡水井。\n到了臺灣日治時期，由於在安平一帶裝設了自來水管道，所以井水不再有人打來飲用。\n不過該井並未因此荒廢，而是被當地居民拿來打孵豆芽用的水。\n由於用該井之水孵育的豆芽菜味道鮮美。\n古井附近遂被稱為「豆菜寮」，而井也被稱為「豆菜芽仔井」。"
+        
+        ,"明鄭時期，軍民在臺灣府城的尖山南坡建「觀音宮」。康熙時重修擴建之後\n因拜亭採用了抱廈的形式而改名「大觀音亭」\n在同治十三年（1874年）之後，因所謂的開山撫番導致官兵多染上瘴癘\n這些參與的官兵因曾向興濟宮大道公祈求保佑，後來果然靈驗\n因而上報朝廷，成為臺灣唯一有列入官方祀典春秋二祭的保生大帝廟。\n2007年，啟建七朝清醮。2011年參考《欽定大清會典事例》\n結合興濟宮三獻禮，恢復由地方官員親臨致祭的春祭大典。\n興濟宮春祭時，曾舉辦「醫神大道公藥籤藥材展」並製作「祀典興濟宮保生大帝藥籤解」。\n"
+        ,"周氏蝦捲源自於１９６５年當時創辦人周進根先生原本是辦外燴的〔總舖師〕\n而外燴不是天天都有生意，於是在閒暇時於台南安平經營小吃生意\n當時販賣多種小吃，而蝦捲僅是其中一道菜\n到了１９８０年左右將原本的蝦捲加以改良，以新鮮蝦仁為主做成的蝦捲深受消費者的喜愛\n用本身之姓氏〝周〞為店號，取名為〝周氏蝦捲〞\n經過十多年的努力經營，將傳統小吃店的經營型態，轉變為現代化的餐飲營運模式\n因此成為台灣極具規模與份量的餐飲店"
+        ,"臺南運河，為圍繞臺南市五期重劃區、連接臺南市區與安平港間的運河。\n19世紀初期所闢之古運河於日治時期淤塞，又另闢今日所見的台南運河。\n日本人松本虎太設計，主要用途取代已不能航行的舊運河。\n讓外海船隻能循水路直抵市中心，帶動市區繁榮。\n運河在安平及臺南市區各設有船渠，以容納舟船停靠。\n然而安平港日漸淤積，港務功能又奪於高雄港。\n運河遂轉型為觀光用途，每年端午節亦在此地舉行龍舟競賽"
+        ,"安平蚵灰窯文化館位於安北路上，是台灣僅存的完整蚵灰窯\n台南市政府為推動安平港國家歷史風景區\n將蚵灰窯、安平樹屋與安平海關列為國家歷史風景區內的三大景點\n燒蚵灰是台南地區的傳統產業，以蚵灰窯的主體建築物、倉庫組成的文化館\n內部陳列許多早期燒蚵器皿，除此更設有蚵的科學展示及蚵灰的應用。"
+        ];
+        
+        //英文的語音
+        var speakEnglish = [
+            "Fort Zeelandia",
+            "Julius Mannich",
+            "Thean Hou Temple",
+            "Anping Small Fort",
+            "Haishan Hall",
+            "Yanping Acient Well",
+            "Guanyin Temple",
+            "Chao's Shrimp Roll",
+            "Tainan Canal",
+            "Oyster Shell Musium"
+        ];
+        
+        function popOut( placeName )
+        {
+            //設定是要彈出或消失
+            if(popedOut==false)//彈出
+            {
+                $("div.popOut").toggle();
+                $("div.popOut").css("z-index:1");
+                $("div.popOut").animate({opacity: '1'} , 1000);
+                popedOut = true;
+                $("div.popOut div#explainText pre").text(introTextChinese[placeName]);
+                
+                var path = "Images/" + placeName + ".jpg"
+                $("div.popOut img#main").attr("src" , path);
+                
+                var msg = new SpeechSynthesisUtterance(speakEnglish[placeName]);
+                window.speechSynthesis.speak(msg);
+            }
+            else//消失
+            {
+                $("div.popOut").css("z-index:-1");
+                $("div.popOut").animate({opacity: '0'} , 1000);
+                popedOut = false;
+                
+               setTimeout(function() { $("div.popOut").toggle(); }, 1000);
+            }
+        }
+        
+        function back()
+        {
+            $("div.popOut").css("z-index:-1");
+            $("div.popOut").animate({opacity: '0'} , 1000);
+            popedOut = false;
+                
+           setTimeout(function() { $("div.popOut").toggle(); }, 1000);
+        }
+        
+        function showAll()
+        {
+            document.getElementById('MyAudio').play();
+            var x = 0;
+            for(var i=0; i<10; i=i+1)
+            {
+                setTimeout(function(){
+                $("div.popOut").show();
+                $("div.popOut").css("z-index:1");
+                $("div.popOut").animate({opacity: '1'} , 1000);
+                popedOut = true;
+                $("div.popOut div#explainText pre").text(introTextChinese[x]);
+                
+                var path = "Images/" + x + ".jpg"
+                $("div.popOut img#main").attr("src" , path);
+                x = x+1;
+                if(x>=10)
+                {
+                    x=Math.floor((Math.random() * 10));
+                }
+                
+                setTimeout(function(){
+                   $("div.popOut").css("z-index:-1");
+                   $("div.popOut").animate({opacity: '0'} , 1000);
+                   popedOut = false;
+                   setTimeout(function() { $("div.popOut").toggle(); }, 1000); 
+                } , 3000);
+                
+                
+                } , i*5000);
+                
+            }
+        }
+        
+        $(document).ready(function(){
+            
+            
+            //選取所有的polygon，給他們被點擊的功能
+            $("svg.canvas polygon").click(function(){
+                var elementName = $(this).attr("placeName");
+                popOut(elementName);
+            });
+            
+            $("#back").click(function(){
+                back();
+            });
+            
+            $("div#showBar div#view p").click(function(){
+                showAll();
+            });
+
+            
+        });
+        </script>
+        <style>
+            @import url(http://fonts.googleapis.com/earlyaccess/cwtexfangsong.css);
+            
+            /*設定body*/
+            body
+            {
+                background-image: url("Images/body.jpg");
+                margin: 0;
+                /*border: 1px solid red;*/
+            }
+            
+            /*設定彈出視窗*/
+            div.popOut
+            {
+                border: 1px solid deeppink;
+                margin-left: 100px;
+                margin-top: 50px;
+                width: 500px;
+                height: 500px;
+                position: fixed;
+                /*background-color: white;*/
+                background-image: url("Images/wood.jpg");
+                background-repeat: no-repeat;
+                background-size: 500px 500px;
+                display: none;
+                opacity: 0;
+            }
+            /*設定toolBar*/
+            div.popOut div#toolBar
+            {
+                background-image: url("Images/wood1.jpg");
+                height:20px;
+                width: 500px;
+            }
+            /*設定彈出視窗的圖片*/
+            div.popOut img#main
+            {
+                margin: 2%;
+                width: 96%;
+                height: 50%;
+                margin-bottom: 0px;
+            }
+            
+            img#back
+            {
+                margin-top: 0.2%;
+                margin-left: 92%;
+                width: 40px;
+                length: 14px;
+            }
+            
+            /*設定彈出視窗的文字說明方塊*/
+            div.popOut div#explainText
+            {
+                background-image: url("Images/all.gif");
+                width: 96%;
+                height: 39%;
+                margin: 2%;
+                padding:0;
+            }
+            /*設定文字說明方塊的文字*/
+            div.popOut div#explainText pre
+            {
+                margin:0;
+                padding: 2%;
+                font-size: 50%;
+            }
+            
+            
+            div#test
+            {
+                width:500px;
+                height: 500px;
+            }
+            
+            div#map
+            {
+                width: 1020px;
+                height: 620px;
+                /*border: 1px solid black;*/
+                background-image: url("Images/background.png");
+                background-size: 1000px 600px;
+                background-repeat: no-repeat;
+            }
+            svg.canvas
+            {
+                margin-left: 0px;
+                margin-top: 0px;
+            }
+            svg.canvas polygon
+            {
+                fill: cyan;
+                fill-opacity: 0.3;
+                /*test*/
+            }
+            svg.canvas polygon:hover
+            {
+                fill: red;
+                fill-opacity: 0.5;
+            }
+            
+            div#showBar
+            {  
+                margin-top: -620px;
+                margin-left: 995px;
+                width: 320px;
+                height:700px;
+                position: fixed;
+                background-image: url("Images/bd2.jpg");
+                background-size: 100% 100%;
+            }
+            
+            div#showBar div#musicBlock
+            {
+                margin-left: -940px;
+                margin-top: 613px;
+                width: 300%;
+            }
+            
+            div#showBar div#musicBlock audio
+            {
+                width:200%;
+                margin-left: -550px;
+            }
+            
+            div#showBar div#view
+            {
+                margin-top:-650px;
+                margin-left:95px;
+            }
+            
+            div#showBar div#view p
+            {
+                font-size:200%;
+                font-family: 'cwTeXFangSong', serif;
+                font-weight: 580;
+                color:black;
+            }
+            div#my
+            {
+                margin-left:95px;
+                color:blue;
+            }
+            a:visit
+            {
+                color:blue;    
+            }
+            a:hover
+            {
+                color:hotpink;        
+            }
+            h2
+            {
+                margin-left:95px;    
+            }
+            svg.ln
+            {
+                margin-left: 0px;
+                margin-top: 0px;
+            }
+            svg.ln polygon
+            {
+                fill: cyan;
+                fill-opacity: 0.0;
+                /*test*/
+            }
+            svg.ln polygon:hover
+            {
+                fill: red;
+                fill-opacity: 0.5;
+            }
+        </style>
+    </head>
+    
+    <body>
+        
+        <div class = "popOut">
+            <div id = "toolBar">
+                <img id="back" src="Images/back.png">
+            </div>
+            
+            <img id="main" src="Images/castle.jpg">
+            
+            <div id = "explainText">
+                <pre>test</pre>
+            </div>
+        </div>
+        
+        <div id="map">
+            <svg class = "canvas" height="620" width="1020">
+                  <polygon points = " 285 , 138
+                                                         357 , 105
+                                                         403 , 103
+                                                         435 , 195
+                                                         441 , 222
+                                                         347 , 238
+                                                         324 , 200
+                                                         310 , 172" placeName = "0"/> <!--安平古堡-->                                                                                                                                                      
+                  <polygon points = " 138 , 143
+                                                         203 , 123
+                                                         218 , 153
+                                                         215 , 155 
+                                                         222 , 171
+                                                         226 , 228
+                                                         200 , 235
+                                                         193 , 223
+                                                         185 , 224" placeName = "1"/> <!--東興洋行-->
+                  <polygon points = " 327 , 262
+                                                         343 , 262
+                                                         343 , 275
+                                                         327 , 275" placeName = "2"/> <!--天后宮-->
+                  <polygon points = " 100 , 385
+                                                         131 , 372
+                                                         160 , 439
+                                                         122 , 444" placeName = "3"/> <!--安平小砲台-->
+                  <polygon points = " 555 , 158
+                                                         589 , 174
+                                                         573 , 210
+                                                         536 , 198" placeName = "4"/> <!--海山館-->
+                  <polygon points = " 400 , 264
+                                                         443 , 264
+                                                         445 , 311
+                                                         416 , 311
+                                                         416 , 295
+                                                         399 , 295" placeName = "5"/> <!--延平街古井-->
+                  <polygon points = " 458 , 300
+                                                         539 , 321
+                                                         560 , 313
+                                                         614 , 332
+                                                         608 , 349
+                                                         455 , 315" placeName = "6"/> <!--觀音亭-->
+                  <polygon points = " 608 , 359
+                                                         657 , 371
+                                                         653 , 384
+                                                         630 , 381
+                                                         614 , 372
+                                                         605 , 372" placeName = "7"/> <!--周氏蝦捲-->    
+                  <polygon points = " 406 , 600
+                                                         460 , 539
+                                                         495 , 516
+                                                         649 , 523
+                                                         668 , 526
+                                                         730 , 536
+                                                         782 , 551
+                                                         875 , 595
+                                                         875 , 600
+                                                         785 , 600
+                                                         700 , 570
+                                                         670 , 563
+                                                         560 , 557
+                                                         476 , 563
+                                                         445 , 600" placeName = "8"/> <!--台南運河-->                                                                                                                                                 
+                  <polygon points = " 770 , 88
+                                                         970 , 66
+                                                         971 , 113
+                                                         978 , 143
+                                                         930 , 194
+                                                         871 , 145
+                                                         903 , 99
+                                                         899 , 96
+                                                         866 , 140
+                                                         820 , 110" placeName = "9"/> <!--蚵灰窯文化館-->
+            </svg>                                                                                                                    
+            <svg class = "ln" height="620" width="1020">                
+                <polygon points = " 130 , 380 
+                                    125 , 375
+                                    190 , 220
+                                    195 , 225"/> <!--清三區-->
+                <polygon points = " 225 , 220
+                                    230 , 225                                   
+                                    540 , 200
+                                    535 , 195"/> <!--清三區-->
+                <polygon points = " 380 , 220
+                                    390 , 220
+                                    420 , 270
+                                    410 , 270"/> <!--荷一區-->                                                        
+            </svg>
+        </div>
+        
+        <div id="showBar">
+           
+            
+           
+           <div id="musicBlock">
+                <audio controls id="MyAudio">
+                    <source src="Music/song.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+            
+            <div id="view">
+                <p>幻燈片模式</p>
+            </div>
+            <h2>旅遊參考路線</h2>
+            <div id="my">
+                <p><b><a>清三區</a></b></p>
+                <p><b><a>荷一區</a></b></p>
+            </div>
+            <h2>個別地點</h2>
+            <div id="my">
+                 <p><b><a>安平古堡</a></b></p>
+                 <p><b><a>東興洋行</a></b></p>
+                 <p><b><a>天后宮</a></b></p>
+                 <p><b><a>安平小砲台</a></b></p>
+                 <p><b><a>海山館</a></b></p>
+                 <p><b><a>延平街古井</a></b></p>
+                 <p><b><a>觀音亭</a></b></p>
+                 <p><b><a>周氏蝦捲</a></b></p>
+                 <p><b><a>台南運河</a></b></p>
+                 <p><b><a>蚵灰窯文化館</a></b></p>
+            </div>                 
+        </div>
+
+    </body>
+    
+</html>
