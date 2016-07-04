@@ -128,9 +128,41 @@
             $("div#showBar div#view p").click(function(){
                 showAll();
             });
-
             
+            $("b").click(function(){
+                var elementName = $(this).attr("placeName");
+                popOut(elementName);
+            });
+                        
         });
+        var showed = false;
+        function show(placeName){
+             //設定是要彈出或消失
+            if(showed==false)//彈出
+            {
+                $("b.popOut").toggle();
+                $("b.popOut").css("z-index:1");
+                $("b.popOut").animate({opacity: '1'} , 1000);
+                showed = true;
+                $("b.popOut b#explainText pre").text(introTextChinese[placeName]);
+                
+                var pat = "Images/" + placeName + ".jpg"
+                $("b.popOut img#main").attr("src" , pat);
+                
+                var msgs = new SpeechSynthesisUtterance(speakEnglish[placeName]);
+                window.speechSynthesis.speak(msgs);
+            }
+            else//消失
+            {
+                $("b.popOut").css("z-index:-1");
+                $("b.popOut").animate({opacity: '0'} , 1000);
+                showed = false;
+                
+               setTimeout(function() { $("b.popOut").toggle(); }, 1000);
+            }
+        }
+        
+         
         </script>
         <style>
             @import url(http://fonts.googleapis.com/earlyaccess/cwtexfangsong.css);
@@ -270,38 +302,82 @@
                 font-weight: 580;
                 color:black;
             }
-            div#my
+            div#showBar div#my
             {
                 margin-left:95px;
                 color:blue;
             }
-            a:visit
+            div#showBar div#my a:visit
             {
                 color:blue;    
             }
-            a:hover
+            div#showBar div#my a:hover
             {
                 color:hotpink;        
+            }
+            div#showBar div#my c
+            {
+                
             }
             h2
             {
                 margin-left:95px;    
             }
-            svg.ln
+            
+            b.popOut
             {
-                margin-left: 0px;
-                margin-top: 0px;
+                border: 1px solid deeppink;
+                margin-left: 100px;
+                margin-top: 50px;
+                width: 500px;
+                height: 500px;
+                position: fixed;
+                /*background-color: white;*/
+                background-image: url("Images/wood.jpg");
+                background-repeat: no-repeat;
+                background-size: 500px 500px;
+                display: none;
+                opacity: 0;
             }
-            svg.ln polygon
+            /*設定toolBar*/
+            b.popOut b#toolBar
             {
-                fill: cyan;
-                fill-opacity: 0.0;
-                /*test*/
+                background-image: url("Images/wood1.jpg");
+                height:20px;
+                width: 500px;
             }
-            svg.ln polygon:hover
+            /*設定彈出視窗的圖片*/
+            b.popOut img#main
             {
-                fill: red;
-                fill-opacity: 0.5;
+                margin: 2%;
+                width: 96%;
+                height: 50%;
+                margin-bottom: 0px;
+            }
+            
+            img#back
+            {
+                margin-top: 0.2%;
+                margin-left: 92%;
+                width: 40px;
+                length: 14px;
+            }
+            
+            /*設定彈出視窗的文字說明方塊*/
+            b.popOut b#explainText
+            {
+                background-image: url("Images/all.gif");
+                width: 96%;
+                height: 39%;
+                margin: 2%;
+                padding:0;
+            }
+            /*設定文字說明方塊的文字*/
+            b.popOut b#explainText pre
+            {
+                margin:0;
+                padding: 2%;
+                font-size: 50%;
             }
         </style>
     </head>
@@ -395,20 +471,7 @@
                                                          866 , 140
                                                          820 , 110" placeName = "9"/> <!--蚵灰窯文化館-->
             </svg>                                                                                                                    
-            <svg class = "ln" height="620" width="1020">                
-                <polygon points = " 130 , 380 
-                                    125 , 375
-                                    190 , 220
-                                    195 , 225"/> <!--清三區-->
-                <polygon points = " 225 , 220
-                                    230 , 225                                   
-                                    540 , 200
-                                    535 , 195"/> <!--清三區-->
-                <polygon points = " 380 , 220
-                                    390 , 220
-                                    420 , 270
-                                    410 , 270"/> <!--荷一區-->                                                        
-            </svg>
+            
         </div>
         
         <div id="showBar">
@@ -426,21 +489,21 @@
             </div>
             <h2>旅遊參考路線</h2>
             <div id="my">
-                <p><b><a>清三區</a></b></p>
-                <p><b><a>荷一區</a></b></p>
-            </div>
+                <p><c><a>清三區</a></c></p>
+                <p><c><a>荷一區</a></c></p>
+            </div>    
             <h2>個別地點</h2>
             <div id="my">
-                 <p><b><a>安平古堡</a></b></p>
-                 <p><b><a>東興洋行</a></b></p>
-                 <p><b><a>天后宮</a></b></p>
-                 <p><b><a>安平小砲台</a></b></p>
-                 <p><b><a>海山館</a></b></p>
-                 <p><b><a>延平街古井</a></b></p>
-                 <p><b><a>觀音亭</a></b></p>
-                 <p><b><a>周氏蝦捲</a></b></p>
-                 <p><b><a>台南運河</a></b></p>
-                 <p><b><a>蚵灰窯文化館</a></b></p>
+                <p><b placeName="0"><a>安平古堡</a></b></p>
+                <p><b placeName="1"><a>東興洋行</a></b></p>
+                <p><b placeName="2"><a>天后宮</a></b></p>
+                <p><b placeName="3"><a>安平小砲台</a></b></p>
+                <p><b placeName="4"><a>海山館</a></b></p>
+                <p><b placeName="5"><a>延平街古井</a></b></p>
+                <p><b placeName="6"><a>觀音亭</a></b></p>
+                <p><b placeName="7"><a>周氏蝦捲</a></b></p>
+                <p><b placeName="8"><a>台南運河</a></b></p>
+                <p><b placeName="9"><a>蚵灰窯文化館</a></b></p>
             </div>                 
         </div>
 
